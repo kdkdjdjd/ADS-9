@@ -11,30 +11,30 @@ class BST {
     };
     Node* root;
     Node* addNode(Node*, const T&, int);
-    int sizeTree;
+    int depthTree;
     int searchNode(Node*, const T&);
 
  public:
-    BST():root(nullptr), sizeTree(-1) {}
+    BST():root(nullptr), depthTree(-1) {}
     void add(const T&);
     int search(const T&);
-    int size();
+    int depth();
 };
 
 template <typename T>
-typename BST<T>::Node* BST<T>:: addNode(Node* root, const T& value, int size) {
+typename BST<T>::Node* BST<T>:: addNode(Node* root, const T& value, int depth) {
   if (root == nullptr) {
     root = new Node;
     root->value = value;
     root->count = 1;
     root->left = root->right = nullptr;
-    if (size > sizeTree) {
-      sizeTree = size;
+    if (depth > depthTree) {
+      depthTree = depth;
     }
   } else if (root->value > value) {
-    root->left = addNode(root->left, value, ++size);
+    root->left = addNode(root->left, value, ++depth);
   } else if (root->value < value) {
-    root->right = addNode(root->right, value, ++size);
+    root->right = addNode(root->right, value, ++depth);
   } else {
     root->count++;
   }
@@ -61,8 +61,8 @@ void BST<T>::add(const T& value) {
 }
 
 template<typename T>
-int BST<T>::size() {
-    return sizeTree;
+int BST<T>::depth() {
+    return depthTree;
 }
 
 template<typename T>
